@@ -1,0 +1,32 @@
+version: "3.9"
+networks:
+ taskapi:
+  driver: bridge
+services:
+ app:
+  container_name: taskapi
+  build:
+   context: .
+   dockerfile: TaskApi/Dockerfile
+  ports:
+  - 8080:80
+  networks:
+    - taskapi
+ postgres_db:
+  container_name: postgres
+  build:
+   context: .
+   dockerfile: db/Dockerfile
+  environment:
+   POSTGRES_USER: postgres
+   POSTGRES_PASSWORD: 1
+   POSTGRES_DB: db
+  ports:
+   - 5433:5432
+  networks:
+   - taskapi
+  volumes:
+   - ./db/postgres.sql:/docker-entrypoint-initdb.d/postgres.sql
+   - postgres-data:/var/lib/postgresql/data
+volumes:
+ postgres-data:

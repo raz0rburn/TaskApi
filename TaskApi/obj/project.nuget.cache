@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bVOU5xOb601jYsv5Vr5IdEzp9gZX2eIVAW7UFHLr4D17kAHkpvslQXdTA4XqE00hYV/ZMjUkWvmejvD1zNR6Lw==",
+  "dgSpecHash": "dk9qf0Q6Sa/Aj8dpOWtdohcH9i8LeEu5sd3wQHWCGIs2q6TWwBAhiUESBNcUFuMXfkrVsMqP5bwtVQWn8q4Qlw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ivanovkn\\source\\repos\\TaskApi\\TaskApi\\TaskApi.csproj",
+  "projectFilePath": "C:\\repos\\TaskApi\\TaskApi\\TaskApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ivanovkn\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\ivanovkn\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",

@@ -29,9 +29,14 @@
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/weatherforecast",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/api/taskitems",
+	  "environmentVariables": {
+		"ASPNETCORE_URLS": "https://+:443;http://+:80",
+        "ASPNETCORE_HTTPS_PORT": "5001"
+	  }
       "publishAllPorts": true,
-      "useSSL": true
+	  "httpPort": 8080,
+      "useSSL": false
     }
   }
 }
