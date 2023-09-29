@@ -5,7 +5,7 @@
 -- Dumped from database version 14.9
 -- Dumped by pg_dump version 14.9
 
--- Started on 2023-09-29 13:53:02
+-- Started on 2023-09-30 01:19:37
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -30,11 +30,12 @@ SET default_table_access_method = heap;
 CREATE TABLE public."TaskItems" (
     "Id" integer NOT NULL,
     "Name" character(128),
-    "Status" character(16),
     "DueDate" character(10),
     "CreationDate" character(10),
     "CompletionDate" character(10),
-    "Description" character(1024)
+    "Description" character(1024),
+    "Status" integer,
+    "IsDeleted" integer
 );
 
 
@@ -57,7 +58,7 @@ CREATE SEQUENCE public."TaskItem_Id_seq"
 ALTER TABLE public."TaskItem_Id_seq" OWNER TO postgres;
 
 --
--- TOC entry 3313 (class 0 OID 0)
+-- TOC entry 3312 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: TaskItem_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -66,7 +67,7 @@ ALTER SEQUENCE public."TaskItem_Id_seq" OWNED BY public."TaskItems"."Id";
 
 
 --
--- TOC entry 3164 (class 2604 OID 16401)
+-- TOC entry 3163 (class 2604 OID 16401)
 -- Name: TaskItems Id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -74,35 +75,34 @@ ALTER TABLE ONLY public."TaskItems" ALTER COLUMN "Id" SET DEFAULT nextval('publi
 
 
 --
--- TOC entry 3306 (class 0 OID 16395)
+-- TOC entry 3305 (class 0 OID 16395)
 -- Dependencies: 209
 -- Data for Name: TaskItems; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."TaskItems" ("Id", "Name", "Status", "DueDate", "CreationDate", "CompletionDate", "Description") FROM stdin;
-0	Eat                                                                                                                             	\N	\N	\N	\N	\N
-1	play a new                                                                                                                      	\N	\N	\N	\N	\N
-2	walk                                                                                                                            	\N	\N	\N	\N	\N
-3	work                                                                                                                            	\N	\N	\N	\N	\N
-4	relax                                                                                                                           	\N	\N	\N	\N	\N
-5	driving                                                                                                                         	Created         	\N	\N	\N	\N
-6	swimming                                                                                                                        	Created         	\N	\N	\N	\N
-7	dancing                                                                                                                         	Created         	2023-09-29	2023-09-29	\N	\N
-8	dancing                                                                                                                         	Completed       	2023-09-28	2023-09-28	2023-09-28	\N
+COPY public."TaskItems" ("Id", "Name", "DueDate", "CreationDate", "CompletionDate", "Description", "Status", "IsDeleted") FROM stdin;
+3	work                                                                                                                            	\N	\N	\N	\N	0	1
+7	dancing                                                                                                                         	2023-09-29	2023-09-29	\N	\N	0	1
+5	Eat                                                                                                                             	2023-09-29	2023-09-29	\N	\N	0	0
+6	eat                                                                                                                             	2023-09-30	2023-09-29	\N	\N	0	0
+8	eat                                                                                                                             	2023-10-2 	2023-09-29	\N	\N	0	0
+9	eat                                                                                                                             	2023-09-30	2023-09-29	\N	\N	0	0
+1	play a new                                                                                                                      	\N	\N	\N	\N	0	0
+0	Eat                                                                                                                             	\N	\N	\N	\N	0	0
 \.
 
 
 --
--- TOC entry 3314 (class 0 OID 0)
+-- TOC entry 3313 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: TaskItem_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."TaskItem_Id_seq"', 4, true);
+SELECT pg_catalog.setval('public."TaskItem_Id_seq"', 10, true);
 
 
 --
--- TOC entry 3166 (class 2606 OID 16403)
+-- TOC entry 3165 (class 2606 OID 16403)
 -- Name: TaskItems TaskItems_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -110,7 +110,7 @@ ALTER TABLE ONLY public."TaskItems"
     ADD CONSTRAINT "TaskItems_pkey" PRIMARY KEY ("Id");
 
 
--- Completed on 2023-09-29 13:53:02
+-- Completed on 2023-09-30 01:19:38
 
 --
 -- PostgreSQL database dump complete

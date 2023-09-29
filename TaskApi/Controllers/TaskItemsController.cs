@@ -20,14 +20,21 @@ namespace TaskApi.Controllers
             _context = context;
         }
 
-        // GET: api/TodoItems
+        // GET: api/TaskItems
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TaskItem>>> GetTaskItems()
         {
             return await _context.TaskItems
                 .ToListAsync();
         }
+        // GET: api/TaskItems
+        [HttpGet("deleted")]
+        public async Task<ActionResult<IEnumerable<TaskItem>>> GetDeletedTaskItems()
+        {
+            return await _context.TaskItems.Where(p => p.IsDeleted.Equals(IsDeleted.Yes)).ToListAsync(); ;
+            //return await _context.TaskItems
 
+        }
         // GET: api/TaskItems/5
         [HttpGet("{id}")]
         public async Task<ActionResult<TaskItem>> GetTaskItem(long id)
@@ -43,7 +50,23 @@ namespace TaskApi.Controllers
 
             return taskItem;
         }
+        // GET: api/TaskItems/5
+        [HttpGet("deleted/{id}")]
+        public async Task<ActionResult<TaskItem>> GetDeletedTaskItem(long id)
+        {
 
+
+            var taskItem = await _context.TaskItems.FindAsync(id);
+
+            if (taskItem == null)
+            {
+                return NotFound();
+            }
+            if (taskItem.IsDeleted.Equals(IsDeleted.Yes))
+                return taskItem;
+            else
+                return NotFound();
+        }
         // PUT: api/TaskItems/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
@@ -64,12 +87,15 @@ namespace TaskApi.Controllers
 
             //Запись даты если статус "Completed"
 
-            if (taskItemDTO.Status == "Completed")
+            if (taskItemDTO.Status == Status.Completed)
             {
                 varCompletionDate = DateTime.Now.ToString("yyyy-MM-dd");
             }
             else
                 varCompletionDate = "";
+
+
+
             var taskItem = new TaskItem
             {
                 Id = taskItemDTO.Id,
@@ -107,8 +133,9 @@ namespace TaskApi.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<TaskItemDTO>> CreateTodoItem(TaskItemDTO taskItemDTO)
+        public async Task<ActionResult<TaskItemDTO>> CreateTaskItem(TaskItemDTO taskItemDTO)
         {
+
             var taskItem = new TaskItem
             {
                 Id = taskItemDTO.Id,
@@ -127,8 +154,53 @@ namespace TaskApi.Controllers
                 ItemToDTO(taskItem));
         }
 
+        // POST: api/TaskItems/deleted/5
+        [HttpPost("deleted/{id}")]
+        public async Task<ActionResult<TaskItemDTO>> RestoreTaskItem(long id)
+        {
+            var taskItem = await _context.TaskItems.FindAsync(id);
+            if (taskItem == null)
+            {
+                return NotFound();
+            }
+            if ((taskItem.IsDeleted.Equals(IsDeleted.Yes)))
+            {
+
+                taskItem.IsDeleted = IsDeleted.No;
+
+            }
+
+
+
+            await _context.SaveChangesAsync();
+            
+            return CreatedAtAction(
+                nameof(GetTaskItem),
+                new { id = taskItem.Id },
+                taskItem);
+        }
+
         // DELETE: api/TaskItems/5
         [HttpDelete("{id}")]
+        public async Task<ActionResult<TaskItem>> SoftDeleteTaskItem(long id)
+        {
+            var taskItem = await _context.TaskItems.FindAsync(id);
+            if (taskItem == null)
+            {
+                return NotFound();
+            }
+            
+            if ((taskItem.IsDeleted == IsDeleted.No))
+                taskItem.IsDeleted = IsDeleted.Yes;
+            
+            //_context.TaskItems.Remove(taskItem);
+            await _context.SaveChangesAsync();
+
+            return taskItem;
+        }
+
+        // DELETE: api/TaskItems/deleted/5
+        [HttpDelete("deleted/{id}")]
         public async Task<ActionResult<TaskItem>> DeleteTaskItem(long id)
         {
             var taskItem = await _context.TaskItems.FindAsync(id);
@@ -136,12 +208,22 @@ namespace TaskApi.Controllers
             {
                 return NotFound();
             }
+            if ((taskItem.IsDeleted.Equals(IsDeleted.Yes)))
+            {
+                
+                _context.TaskItems.Remove(taskItem);
+                
+            }
 
-            _context.TaskItems.Remove(taskItem);
             await _context.SaveChangesAsync();
 
+
+
+
             return taskItem;
+           
         }
+
 
         private bool TaskItemExists(long id) =>
             _context.TaskItems.Any(e => e.Id == id);
@@ -153,7 +235,8 @@ namespace TaskApi.Controllers
                 Name = taskItem.Name,
                 DueDate = taskItem.DueDate,
                 CreationDate = taskItem.CreationDate,
-                Status = taskItem.Status
+                Status = taskItem.Status,
+               
             };
     }
 }

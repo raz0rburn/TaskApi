@@ -46,8 +46,11 @@ namespace TaskApi.Models
             });
 
             OnModelCreatingPartial(modelBuilder);
+
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+    
     }
 }

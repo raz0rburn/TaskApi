@@ -6,6 +6,19 @@ using System.ComponentModel.DataAnnotations;
 using TaskApi.CustomValidation;
 namespace TaskApi.Models
 {
+    public enum Status
+    {
+        Created,
+        Progress,
+        Completed
+    }
+    public enum IsDeleted 
+    {
+        No,
+        Yes
+        
+    }
+
     public partial class TaskItem
     {
         public long Id { get; set; }
@@ -14,15 +27,18 @@ namespace TaskApi.Models
 
 
 
-        [LessDate]
+        [ValidDate]
         public string DueDate { get; set; }
-        [LessDate]
+        [ValidDate]
         public string CreationDate { get; set; }
-        [LessDate]
+        
         public string CompletionDate { get; set; }
 
-        [CorrectStatus]
-        public string Status { get; set; }
+
+        public Status Status { get; set; }
+
+
+        public IsDeleted IsDeleted { get; set; }
     }
 }
 
