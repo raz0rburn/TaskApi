@@ -1,3 +1,4 @@
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,8 +13,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Npgsql;
 //
+
+
+
+//
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using TaskApi.Models;
+using TaskApi.Helpers;
+using TaskApi.Services;
+
 namespace TaskApi
 {
     public class Startup
@@ -30,13 +40,7 @@ namespace TaskApi
         {
             services.AddControllers();
 
-            //services.AddDbContext<TaskContext>(opt =>opt.UseInMemoryDatabase("TaskList"));
 
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "TodoApi", Version = "v1" });
-            //});
-            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             var connectionString = Configuration["PostgreSql:ConnectionString"];
             var dbPassword = Configuration["PostgreSql:DbPassword"];
             var builder = new NpgsqlConnectionStringBuilder(connectionString)
@@ -44,6 +48,17 @@ namespace TaskApi
                 Password = dbPassword
             };
             services.AddDbContext<dbContext>(options => options.UseNpgsql(builder.ConnectionString));
+
+            services.AddDbContext<DataContext>(options => options.UseNpgsql(builder.ConnectionString));
+
+            services.AddScoped(typeof(IEfRepository<>), typeof(UserRepository<>));
+
+            services.AddAutoMapper(typeof(UserProfile));
+            services.AddCors();
+            services.AddControllers();
+
+
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,10 +75,15 @@ namespace TaskApi
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+
+
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+            app.UseMiddleware<JwtMiddleware>();
+            app.UseEndpoints(x => x.MapControllers());
         }
     }
 }

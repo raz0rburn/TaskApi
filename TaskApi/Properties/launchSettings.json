@@ -35,7 +35,8 @@
       },
       "publishAllPorts": true,
       "httpPort": 8080,
-      "useSSL": false
+      "useSSL": true,
+      "sslPort": 8443
     }
   }
 }

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TaskApi.Models;
-
+using TaskApi.Helpers;
 namespace TaskApi.Controllers
 {
     [Route("api/[controller]")]
@@ -21,6 +21,7 @@ namespace TaskApi.Controllers
         }
 
         // GET: api/TaskItems
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TaskItem>>> GetTaskItems()
         {

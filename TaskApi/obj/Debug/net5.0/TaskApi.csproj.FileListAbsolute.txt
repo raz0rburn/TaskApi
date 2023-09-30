@@ -264,3 +264,10 @@ C:\repos\TaskApi\TaskApi\obj\Debug\net5.0\TaskApi.dll
 C:\repos\TaskApi\TaskApi\obj\Debug\net5.0\ref\TaskApi.dll
 C:\repos\TaskApi\TaskApi\obj\Debug\net5.0\TaskApi.pdb
 C:\repos\TaskApi\TaskApi\obj\Debug\net5.0\TaskApi.genruntimeconfig.cache
+C:\repos\TaskApi\TaskApi\bin\Debug\net5.0\AutoMapper.dll
+C:\repos\TaskApi\TaskApi\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\repos\TaskApi\TaskApi\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\repos\TaskApi\TaskApi\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+C:\repos\TaskApi\TaskApi\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+C:\repos\TaskApi\TaskApi\bin\Debug\net5.0\Microsoft.OpenApi.dll
+C:\repos\TaskApi\TaskApi\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
