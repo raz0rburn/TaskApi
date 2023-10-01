@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TaskApi.Entities;
-
+using TaskApi.Models;
 namespace TaskApi.Services
 {
     public class UserRepository<T>: IEfRepository<T> where T: BaseEntity
     {
-        private readonly DataContext _context;
+        private readonly dbContext _context;
 
-        public UserRepository(DataContext context)
+        public UserRepository(dbContext context)
         {
             _context = context;
         }

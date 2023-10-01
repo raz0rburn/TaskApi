@@ -249,7 +249,6 @@ C:\repos\TaskApi\TaskApi\bin\Debug\net5.0\runtimes\win-arm\lib\net5.0\dotnet-asp
 C:\repos\TaskApi\TaskApi\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 C:\repos\TaskApi\TaskApi\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\repos\TaskApi\TaskApi\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\repos\TaskApi\TaskApi\obj\Debug\net5.0\TaskApi.csproj.AssemblyReference.cache
 C:\repos\TaskApi\TaskApi\obj\Debug\net5.0\TaskApi.GeneratedMSBuildEditorConfig.editorconfig
 C:\repos\TaskApi\TaskApi\obj\Debug\net5.0\TaskApi.AssemblyInfoInputs.cache
 C:\repos\TaskApi\TaskApi\obj\Debug\net5.0\TaskApi.AssemblyInfo.cs
@@ -271,3 +270,4 @@ C:\repos\TaskApi\TaskApi\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
 C:\repos\TaskApi\TaskApi\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
 C:\repos\TaskApi\TaskApi\bin\Debug\net5.0\Microsoft.OpenApi.dll
 C:\repos\TaskApi\TaskApi\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+C:\repos\TaskApi\TaskApi\obj\Debug\net5.0\TaskApi.csproj.AssemblyReference.cache

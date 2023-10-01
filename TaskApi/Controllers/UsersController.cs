@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using TaskApi.Helpers;
 using TaskApi.Models;
 using TaskApi.Services;
+//added
+using Microsoft.EntityFrameworkCore;
 
 namespace TaskApi.Controllers
 {
@@ -31,14 +33,29 @@ namespace TaskApi.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserModel userModel)
         {
-            var response = await _userService.Register(userModel);
 
-            if (response == null)
+            //var FoundUserModel = await _userService.
+
+
+            try
             {
-                return BadRequest(new {message = "Didn't register!"});
+                var response = await _userService.Register(userModel);
+                if (response == null)
+                {
+                    return BadRequest(new { message = "Didn't register!" });
+                }
+                return Ok(response);
             }
+            catch (DbUpdateException ex)
+            {
+                return BadRequest(new { message = ex.Message + "DB request error!" });
+            }
+ 
 
-            return Ok(response);
+
+
+
+
         }
 
         [Authorize]

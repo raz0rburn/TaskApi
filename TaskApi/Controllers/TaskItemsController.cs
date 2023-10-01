@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TaskApi.Models;
 using TaskApi.Helpers;
+//added
+
+
 namespace TaskApi.Controllers
 {
     [Route("api/[controller]")]
@@ -24,11 +27,11 @@ namespace TaskApi.Controllers
         [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TaskItem>>> GetTaskItems()
-        {
-            return await _context.TaskItems
-                .ToListAsync();
+        { 
+            return await _context.TaskItems.Where(p => p.IsDeleted.Equals(IsDeleted.No)).ToListAsync();
         }
         // GET: api/TaskItems
+        [Authorize]
         [HttpGet("deleted")]
         public async Task<ActionResult<IEnumerable<TaskItem>>> GetDeletedTaskItems()
         {
@@ -37,6 +40,7 @@ namespace TaskApi.Controllers
 
         }
         // GET: api/TaskItems/5
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<TaskItem>> GetTaskItem(long id)
         {
@@ -44,7 +48,7 @@ namespace TaskApi.Controllers
 
             var taskItem = await _context.TaskItems.FindAsync(id);
 
-            if (taskItem == null)
+            if (taskItem == null || taskItem.IsDeleted == IsDeleted.Yes)
             {
                 return NotFound();
             }
@@ -52,6 +56,7 @@ namespace TaskApi.Controllers
             return taskItem;
         }
         // GET: api/TaskItems/5
+        [Authorize]
         [HttpGet("deleted/{id}")]
         public async Task<ActionResult<TaskItem>> GetDeletedTaskItem(long id)
         {
@@ -71,6 +76,7 @@ namespace TaskApi.Controllers
         // PUT: api/TaskItems/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTaskItem(long id, TaskItemDTO taskItemDTO)
         {
@@ -101,6 +107,7 @@ namespace TaskApi.Controllers
             {
                 Id = taskItemDTO.Id,
                 Name = taskItemDTO.Name,
+                Description = taskItemDTO.Description,
                 DueDate = taskItemDTO.DueDate,
                 CreationDate = taskItemDTO.CreationDate,
                 Status = taskItemDTO.Status,
@@ -127,24 +134,43 @@ namespace TaskApi.Controllers
                 }
             }
 
-            return NoContent();
+            return CreatedAtAction(
+                nameof(GetTaskItem),
+                new { id = taskItem.Id },
+                ItemToDTO(taskItem));
+            //return NoContent();
         }
 
         // POST: api/TaskItems
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<TaskItemDTO>> CreateTaskItem(TaskItemDTO taskItemDTO)
         {
+            string varCompletionDate;
+
+
+            //Запись даты если статус "Completed"
+
+            if (taskItemDTO.Status == Status.Completed)
+            {
+                varCompletionDate = DateTime.Now.ToString("yyyy-MM-dd");
+            }
+            else
+                varCompletionDate = "";
 
             var taskItem = new TaskItem
             {
                 Id = taskItemDTO.Id,
                 Name = taskItemDTO.Name,
+                Description = taskItemDTO.Description,
                 DueDate = taskItemDTO.DueDate,
                 CreationDate = taskItemDTO.CreationDate,
+                CompletionDate = varCompletionDate,
                 Status = taskItemDTO.Status
             };
+
 
             _context.TaskItems.Add(taskItem);
             await _context.SaveChangesAsync();
@@ -156,6 +182,7 @@ namespace TaskApi.Controllers
         }
 
         // POST: api/TaskItems/deleted/5
+        [Authorize]
         [HttpPost("deleted/{id}")]
         public async Task<ActionResult<TaskItemDTO>> RestoreTaskItem(long id)
         {
@@ -182,6 +209,7 @@ namespace TaskApi.Controllers
         }
 
         // DELETE: api/TaskItems/5
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult<TaskItem>> SoftDeleteTaskItem(long id)
         {
@@ -201,6 +229,7 @@ namespace TaskApi.Controllers
         }
 
         // DELETE: api/TaskItems/deleted/5
+        [Authorize]
         [HttpDelete("deleted/{id}")]
         public async Task<ActionResult<TaskItem>> DeleteTaskItem(long id)
         {
@@ -221,8 +250,11 @@ namespace TaskApi.Controllers
 
 
 
-            return taskItem;
-           
+            return CreatedAtAction(
+            nameof(GetTaskItem),
+            new { id = taskItem.Id },
+            taskItem);
+
         }
 
 
@@ -234,6 +266,7 @@ namespace TaskApi.Controllers
             {
                 Id = taskItem.Id,
                 Name = taskItem.Name,
+                Description = taskItem.Description,
                 DueDate = taskItem.DueDate,
                 CreationDate = taskItem.CreationDate,
                 Status = taskItem.Status,

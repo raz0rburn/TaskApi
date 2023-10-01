@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 #nullable disable
-
+using TaskApi.Entities;
 namespace TaskApi.Models
 {
     public partial class dbContext : DbContext
@@ -19,6 +19,15 @@ namespace TaskApi.Models
 
 
         }
+        public DbSet<User> Users { get; set; }
+
+
+
+       /* public async Task<int> SaveChangesAsync()
+        {
+            return await base.SaveChangesAsync();
+        }*/
+
 
         public virtual DbSet<TaskItem> TaskItems { get; set; }
 

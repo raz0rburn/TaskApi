@@ -49,7 +49,7 @@ namespace TaskApi
             };
             services.AddDbContext<dbContext>(options => options.UseNpgsql(builder.ConnectionString));
 
-            services.AddDbContext<DataContext>(options => options.UseNpgsql(builder.ConnectionString));
+
 
             services.AddScoped(typeof(IEfRepository<>), typeof(UserRepository<>));
 

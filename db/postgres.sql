@@ -5,7 +5,7 @@
 -- Dumped from database version 14.9
 -- Dumped by pg_dump version 14.9
 
--- Started on 2023-09-30 21:58:28
+-- Started on 2023-10-01 20:08:01
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -58,7 +58,7 @@ CREATE SEQUENCE public."TaskItem_Id_seq"
 ALTER TABLE public."TaskItem_Id_seq" OWNER TO postgres;
 
 --
--- TOC entry 3323 (class 0 OID 0)
+-- TOC entry 3325 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: TaskItem_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -73,12 +73,12 @@ ALTER SEQUENCE public."TaskItem_Id_seq" OWNED BY public."TaskItems"."Id";
 
 CREATE TABLE public."Users" (
     "Id" bigint NOT NULL,
-    "FirstName" text,
-    "LastName" text,
-    "Patronymic" text,
-    "Username" text,
-    "Email" text,
-    "Password" text
+    "FirstName" text NOT NULL,
+    "LastName" text NOT NULL,
+    "Patronymic" text NOT NULL,
+    "Username" text NOT NULL,
+    "Email" text NOT NULL,
+    "Password" text NOT NULL
 );
 
 
@@ -100,7 +100,7 @@ CREATE SEQUENCE public."Users_Id_seq"
 ALTER TABLE public."Users_Id_seq" OWNER TO postgres;
 
 --
--- TOC entry 3324 (class 0 OID 0)
+-- TOC entry 3326 (class 0 OID 0)
 -- Dependencies: 211
 -- Name: Users_Id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -125,7 +125,7 @@ ALTER TABLE ONLY public."Users" ALTER COLUMN "Id" SET DEFAULT nextval('public."U
 
 
 --
--- TOC entry 3314 (class 0 OID 16395)
+-- TOC entry 3316 (class 0 OID 16395)
 -- Dependencies: 209
 -- Data for Name: TaskItems; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -136,41 +136,48 @@ COPY public."TaskItems" ("Id", "Name", "DueDate", "CreationDate", "CompletionDat
 5	Eat                                                                                                                             	2023-09-29	2023-09-29	\N	\N	0	0
 6	eat                                                                                                                             	2023-09-30	2023-09-29	\N	\N	0	0
 8	eat                                                                                                                             	2023-10-2 	2023-09-29	\N	\N	0	0
-9	eat                                                                                                                             	2023-09-30	2023-09-29	\N	\N	0	0
-1	play a new                                                                                                                      	\N	\N	\N	\N	0	0
-0	Eat                                                                                                                             	\N	\N	\N	\N	0	0
+12	walk                                                                                                                            	2023-10-1 	2023-10-1 	\N	\N	0	0
+17	play                                                                                                                            	2023-10-1 	2023-10-1 	\N	play the guitar                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 	0	0
+15	play                                                                                                                            	2023-10-2 	2023-10-1 	\N	play the new guitar                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             	0	0
+0	Eat                                                                                                                             	2023-10-3 	2023-10-1 	2023-10-01	eat food in the restoraunt                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      	2	0
+16	play                                                                                                                            	2023-10-2 	2023-10-1 	          	play the electroguitar                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          	0	0
+18	play                                                                                                                            	2023-10-1 	2023-10-1 	2023-10-01	play the guitar                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 	2	0
+19	swim                                                                                                                            	2023-10-1 	2023-10-1 	\N	in a pool                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       	2	0
+20	swim                                                                                                                            	2023-10-1 	2023-10-1 	2023-10-01	in a pool                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       	2	0
 \.
 
 
 --
--- TOC entry 3317 (class 0 OID 32800)
+-- TOC entry 3319 (class 0 OID 32800)
 -- Dependencies: 212
 -- Data for Name: Users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public."Users" ("Id", "FirstName", "LastName", "Patronymic", "Username", "Email", "Password") FROM stdin;
-1	kirill	string	string	string	string	string
-2	\N	\N	\N	\N	\N	\N
 3	user1	user1	user1	user1	sdf@sdfs.ru	123
+1	kirill	string	string	kirill	kirill@ssdf.ru	123
+20	1	test	test	1	1@sdf.ru	1
+22	1	test	test	2	2@sdf.ru	1
+23	admin	admin	test	admin	3@sdf.ru	admin
 \.
 
 
 --
--- TOC entry 3325 (class 0 OID 0)
+-- TOC entry 3327 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: TaskItem_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."TaskItem_Id_seq"', 10, true);
+SELECT pg_catalog.setval('public."TaskItem_Id_seq"', 20, true);
 
 
 --
--- TOC entry 3326 (class 0 OID 0)
+-- TOC entry 3328 (class 0 OID 0)
 -- Dependencies: 211
 -- Name: Users_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Users_Id_seq"', 3, true);
+SELECT pg_catalog.setval('public."Users_Id_seq"', 23, true);
 
 
 --
@@ -191,7 +198,16 @@ ALTER TABLE ONLY public."Users"
     ADD CONSTRAINT "Users_pkey" PRIMARY KEY ("Id");
 
 
--- Completed on 2023-09-30 21:58:28
+--
+-- TOC entry 3176 (class 2606 OID 32811)
+-- Name: Users Users_ukey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Users"
+    ADD CONSTRAINT "Users_ukey" UNIQUE ("Username") INCLUDE ("Email");
+
+
+-- Completed on 2023-10-01 20:08:01
 
 --
 -- PostgreSQL database dump complete
