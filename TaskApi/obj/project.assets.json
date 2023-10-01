@@ -7424,11 +7424,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\repos\\TaskApi\\TaskApi\\TaskApi.csproj",
+      "projectUniqueName": "C:\\kirill\\release\\TaskApi\\TaskApi\\TaskApi.csproj",
       "projectName": "TaskApi",
-      "projectPath": "C:\\repos\\TaskApi\\TaskApi\\TaskApi.csproj",
+      "projectPath": "C:\\kirill\\release\\TaskApi\\TaskApi\\TaskApi.csproj",
       "packagesPath": "C:\\Users\\ivanovkn\\.nuget\\packages\\",
-      "outputPath": "C:\\repos\\TaskApi\\TaskApi\\obj\\",
+      "outputPath": "C:\\kirill\\release\\TaskApi\\TaskApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

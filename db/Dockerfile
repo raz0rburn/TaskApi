@@ -1,3 +1,3 @@
 FROM postgres:14.9
 
-COPY *.sql /docker-entrypoint-initdb.d/
+COPY db/*.sql /docker-entrypoint-initdb.d/
