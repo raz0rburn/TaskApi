@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-//added:
 using System.Globalization;
 using System.Threading;
 namespace TaskApi.CustomValidation
@@ -31,8 +30,7 @@ namespace TaskApi.CustomValidation
                 {
                     ErrorMessage = "{0} Date should not be less than current date";
                     return false;
-                }
-                    
+                }      
             }
             catch (FormatException)
             {
@@ -43,12 +41,7 @@ namespace TaskApi.CustomValidation
             {
                 ErrorMessage = "Conversion of the {0} '{1}' is not supported" + value.GetType().Name + value;
                 return false;
-            }
-            
-            
-            
-                
-           
+            } 
         }
     }
 }

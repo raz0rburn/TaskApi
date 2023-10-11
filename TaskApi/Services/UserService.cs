@@ -30,7 +30,6 @@ namespace TaskApi.Services
 
             if (user == null)
             {
-                // todo: need to add logger
                 return null;
             }
 

@@ -14,7 +14,6 @@ namespace TaskApi.Helpers
     {
         private readonly RequestDelegate _next;
         private readonly IConfiguration _configuration;
-        //private readonly ILogger _logger;
 
         public JwtMiddleware(RequestDelegate next, IConfiguration configuration)
         {
@@ -55,7 +54,7 @@ namespace TaskApi.Helpers
             }
             catch
             {
-                // todo: need to add logger
+                
             }
         }
     }

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TaskApi.Models;
 using TaskApi.Helpers;
-//added
+
 
 
 namespace TaskApi.Controllers
@@ -36,7 +36,7 @@ namespace TaskApi.Controllers
         public async Task<ActionResult<IEnumerable<TaskItem>>> GetDeletedTaskItems()
         {
             return await _context.TaskItems.Where(p => p.IsDeleted.Equals(IsDeleted.Yes)).ToListAsync(); ;
-            //return await _context.TaskItems
+            
 
         }
         // GET: api/TaskItems/5
@@ -74,8 +74,7 @@ namespace TaskApi.Controllers
                 return NotFound();
         }
         // PUT: api/TaskItems/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+       
         [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTaskItem(long id, TaskItemDTO taskItemDTO)
@@ -138,12 +137,11 @@ namespace TaskApi.Controllers
                 nameof(GetTaskItem),
                 new { id = taskItem.Id },
                 ItemToDTO(taskItem));
-            //return NoContent();
+           
         }
 
         // POST: api/TaskItems
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        
         [Authorize]
         [HttpPost]
         public async Task<ActionResult<TaskItemDTO>> CreateTaskItem(TaskItemDTO taskItemDTO)
@@ -222,7 +220,7 @@ namespace TaskApi.Controllers
             if ((taskItem.IsDeleted == IsDeleted.No))
                 taskItem.IsDeleted = IsDeleted.Yes;
             
-            //_context.TaskItems.Remove(taskItem);
+            
             await _context.SaveChangesAsync();
 
             return taskItem;

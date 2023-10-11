@@ -25,7 +25,6 @@ namespace TaskApi.Services
 
             if (result == null)
             {
-                //todo: need to add logger
                 return null;
             }
 
