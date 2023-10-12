@@ -16,15 +16,16 @@ namespace TaskApi.Controllers
     [ApiController]
     public class TaskItemsController : ControllerBase
     {
-        private readonly dbContext _context;
 
-        public TaskItemsController(dbContext context)
+        private readonly MemDbContext _context;
+
+        public TaskItemsController(MemDbContext context)
         {
             _context = context;
         }
 
         // GET: api/TaskItems
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TaskItem>>> GetTaskItems()
         { 
@@ -137,12 +138,11 @@ namespace TaskApi.Controllers
                 nameof(GetTaskItem),
                 new { id = taskItem.Id },
                 ItemToDTO(taskItem));
-           
         }
 
         // POST: api/TaskItems
         
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         public async Task<ActionResult<TaskItemDTO>> CreateTaskItem(TaskItemDTO taskItemDTO)
         {

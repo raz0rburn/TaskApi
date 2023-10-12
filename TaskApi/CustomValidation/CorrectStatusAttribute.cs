@@ -8,16 +8,16 @@ namespace TaskApi.CustomValidation
 {
     public class CorrectStatusAttribute : ValidationAttribute
     {
-        private List<String> Status;
+        private List<String> status;
         public CorrectStatusAttribute() : base("{0} Status value incorrect")
         {
-            Status = new List<String>() { "Created", "In process", "Completed" };
+            status = new List<String>() { "Created", "In process", "Completed" };
 
         }
 
         public override bool IsValid(object value)
         {
-            if (Status.Contains(value))
+            if (status.Contains(value))
                 return true;
             else
                 return false;

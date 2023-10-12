@@ -43,7 +43,9 @@ namespace TaskApi
             };
             services.AddDbContext<dbContext>(options => options.UseNpgsql(builder.ConnectionString));
 
-
+            //option of switching to Memory Database
+            services.AddDbContext<MemDbContext>(opt =>
+                       opt.UseInMemoryDatabase("TaskList"));
 
             services.AddScoped(typeof(IEfRepository<>), typeof(UserRepository<>));
 
