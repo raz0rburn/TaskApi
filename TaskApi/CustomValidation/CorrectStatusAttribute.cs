@@ -12,7 +12,6 @@ namespace TaskApi.CustomValidation
         public CorrectStatusAttribute() : base("{0} Status value incorrect")
         {
             status = new List<String>() { "Created", "In process", "Completed" };
-
         }
 
         public override bool IsValid(object value)

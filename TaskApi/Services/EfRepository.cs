@@ -7,9 +7,9 @@ namespace TaskApi.Services
 {
     public class UserRepository<T>: IEfRepository<T> where T: BaseEntity
     {
-        private readonly MemDbContext _context;
+        private readonly dbContext _context;
 
-        public UserRepository(MemDbContext context)
+        public UserRepository(dbContext context)
         {
             _context = context;
         }

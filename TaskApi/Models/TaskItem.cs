@@ -19,7 +19,7 @@ namespace TaskApi.Models
         
     }
 
-    public partial class TaskItem
+    public class TaskItem
     {
         public long Id { get; set; }
         public string Name { get; set; }

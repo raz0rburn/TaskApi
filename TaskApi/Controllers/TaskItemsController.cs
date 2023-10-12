@@ -8,18 +8,14 @@ using Microsoft.EntityFrameworkCore;
 using TaskApi.Models;
 using TaskApi.Helpers;
 
-
-
 namespace TaskApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class TaskItemsController : ControllerBase
     {
-
-        private readonly MemDbContext _context;
-
-        public TaskItemsController(MemDbContext context)
+        private readonly dbContext _context;
+        public TaskItemsController(dbContext context)
         {
             _context = context;
         }
@@ -37,23 +33,17 @@ namespace TaskApi.Controllers
         public async Task<ActionResult<IEnumerable<TaskItem>>> GetDeletedTaskItems()
         {
             return await _context.TaskItems.Where(p => p.IsDeleted.Equals(IsDeleted.Yes)).ToListAsync(); ;
-            
-
         }
         // GET: api/TaskItems/5
         [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<TaskItem>> GetTaskItem(long id)
         {
-
-
             var taskItem = await _context.TaskItems.FindAsync(id);
-
             if (taskItem == null || taskItem.IsDeleted == IsDeleted.Yes)
             {
                 return NotFound();
             }
-
             return taskItem;
         }
         // GET: api/TaskItems/5
@@ -61,10 +51,7 @@ namespace TaskApi.Controllers
         [HttpGet("deleted/{id}")]
         public async Task<ActionResult<TaskItem>> GetDeletedTaskItem(long id)
         {
-
-
             var taskItem = await _context.TaskItems.FindAsync(id);
-
             if (taskItem == null)
             {
                 return NotFound();
@@ -74,35 +61,24 @@ namespace TaskApi.Controllers
             else
                 return NotFound();
         }
+
         // PUT: api/TaskItems/5
-       
         [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTaskItem(long id, TaskItemDTO taskItemDTO)
         {
             string varCompletionDate;
-
-
-
-
             if (id != taskItemDTO.Id)
             {
                 return BadRequest();
             }
-
-
-
             //Запись даты если статус "Completed"
-
             if (taskItemDTO.Status == Status.Completed)
             {
                 varCompletionDate = DateTime.Now.ToString("yyyy-MM-dd");
             }
             else
                 varCompletionDate = "";
-
-
-
             var taskItem = new TaskItem
             {
                 Id = taskItemDTO.Id,
@@ -113,11 +89,7 @@ namespace TaskApi.Controllers
                 Status = taskItemDTO.Status,
                 CompletionDate = varCompletionDate
             };
-
-
-
             _context.Entry(taskItem).State = EntityState.Modified;
-
             try
             {
                 await _context.SaveChangesAsync();
@@ -133,7 +105,6 @@ namespace TaskApi.Controllers
                     throw;
                 }
             }
-
             return CreatedAtAction(
                 nameof(GetTaskItem),
                 new { id = taskItem.Id },
@@ -141,23 +112,19 @@ namespace TaskApi.Controllers
         }
 
         // POST: api/TaskItems
-        
+
         //[Authorize]
         [HttpPost]
         public async Task<ActionResult<TaskItemDTO>> CreateTaskItem(TaskItemDTO taskItemDTO)
         {
             string varCompletionDate;
-
-
             //Запись даты если статус "Completed"
-
             if (taskItemDTO.Status == Status.Completed)
             {
                 varCompletionDate = DateTime.Now.ToString("yyyy-MM-dd");
             }
             else
                 varCompletionDate = "";
-
             var taskItem = new TaskItem
             {
                 Id = taskItemDTO.Id,
@@ -168,11 +135,8 @@ namespace TaskApi.Controllers
                 CompletionDate = varCompletionDate,
                 Status = taskItemDTO.Status
             };
-
-
             _context.TaskItems.Add(taskItem);
             await _context.SaveChangesAsync();
-
             return CreatedAtAction(
                 nameof(GetTaskItem),
                 new { id = taskItem.Id },
@@ -195,11 +159,7 @@ namespace TaskApi.Controllers
                 taskItem.IsDeleted = IsDeleted.No;
 
             }
-
-
-
             await _context.SaveChangesAsync();
-            
             return CreatedAtAction(
                 nameof(GetTaskItem),
                 new { id = taskItem.Id },
@@ -216,13 +176,9 @@ namespace TaskApi.Controllers
             {
                 return NotFound();
             }
-            
             if ((taskItem.IsDeleted == IsDeleted.No))
                 taskItem.IsDeleted = IsDeleted.Yes;
-            
-            
             await _context.SaveChangesAsync();
-
             return taskItem;
         }
 
@@ -238,27 +194,16 @@ namespace TaskApi.Controllers
             }
             if ((taskItem.IsDeleted.Equals(IsDeleted.Yes)))
             {
-                
                 _context.TaskItems.Remove(taskItem);
-                
             }
-
             await _context.SaveChangesAsync();
-
-
-
-
             return CreatedAtAction(
-            nameof(GetTaskItem),
-            new { id = taskItem.Id },
-            taskItem);
-
+                nameof(GetTaskItem),
+                new { id = taskItem.Id },
+                taskItem);
         }
-
-
         private bool TaskItemExists(long id) =>
             _context.TaskItems.Any(e => e.Id == id);
-
         private static TaskItemDTO ItemToDTO(TaskItem taskItem) =>
             new TaskItemDTO
             {
@@ -267,8 +212,7 @@ namespace TaskApi.Controllers
                 Description = taskItem.Description,
                 DueDate = taskItem.DueDate,
                 CreationDate = taskItem.CreationDate,
-                Status = taskItem.Status,
-               
+                Status = taskItem.Status,  
             };
     }
 }

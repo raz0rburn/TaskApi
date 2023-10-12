@@ -5,7 +5,7 @@
 -- Dumped from database version 14.9
 -- Dumped by pg_dump version 14.9
 
--- Started on 2023-10-01 20:08:01
+-- Started on 2023-10-12 22:44:45
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -73,12 +73,12 @@ ALTER SEQUENCE public."TaskItem_Id_seq" OWNED BY public."TaskItems"."Id";
 
 CREATE TABLE public."Users" (
     "Id" bigint NOT NULL,
-    "FirstName" text NOT NULL,
-    "LastName" text NOT NULL,
-    "Patronymic" text NOT NULL,
-    "Username" text NOT NULL,
-    "Email" text NOT NULL,
-    "Password" text NOT NULL
+    "FirstName" character(32) NOT NULL,
+    "LastName" character(32) NOT NULL,
+    "Patronymic" character(32) NOT NULL,
+    "Username" character(32) NOT NULL,
+    "Email" character(32) NOT NULL,
+    "Password" character(32) NOT NULL
 );
 
 
@@ -144,6 +144,7 @@ COPY public."TaskItems" ("Id", "Name", "DueDate", "CreationDate", "CompletionDat
 18	play                                                                                                                            	2023-10-1 	2023-10-1 	2023-10-01	play the guitar                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 	2	0
 19	swim                                                                                                                            	2023-10-1 	2023-10-1 	\N	in a pool                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       	2	0
 20	swim                                                                                                                            	2023-10-1 	2023-10-1 	2023-10-01	in a pool                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       	2	0
+21	swim                                                                                                                            	2023-10-2 	2023-10-2 	2023-10-02	in a pool                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       	2	0
 \.
 
 
@@ -154,11 +155,11 @@ COPY public."TaskItems" ("Id", "Name", "DueDate", "CreationDate", "CompletionDat
 --
 
 COPY public."Users" ("Id", "FirstName", "LastName", "Patronymic", "Username", "Email", "Password") FROM stdin;
-3	user1	user1	user1	user1	sdf@sdfs.ru	123
-1	kirill	string	string	kirill	kirill@ssdf.ru	123
-20	1	test	test	1	1@sdf.ru	1
-22	1	test	test	2	2@sdf.ru	1
-23	admin	admin	test	admin	3@sdf.ru	admin
+3	user1                           	user1                           	user1                           	user1                           	sdf@sdfs.ru                     	123                             
+1	kirill                          	string                          	string                          	kirill                          	kirill@ssdf.ru                  	123                             
+20	1                               	test                            	test                            	1                               	1@sdf.ru                        	1                               
+22	1                               	test                            	test                            	2                               	2@sdf.ru                        	1                               
+23	admin                           	admin                           	test                            	admin                           	3@sdf.ru                        	admin                           
 \.
 
 
@@ -168,7 +169,7 @@ COPY public."Users" ("Id", "FirstName", "LastName", "Patronymic", "Username", "E
 -- Name: TaskItem_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."TaskItem_Id_seq"', 20, true);
+SELECT pg_catalog.setval('public."TaskItem_Id_seq"', 21, true);
 
 
 --
@@ -199,7 +200,7 @@ ALTER TABLE ONLY public."Users"
 
 
 --
--- TOC entry 3176 (class 2606 OID 32811)
+-- TOC entry 3176 (class 2606 OID 32869)
 -- Name: Users Users_ukey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -207,7 +208,7 @@ ALTER TABLE ONLY public."Users"
     ADD CONSTRAINT "Users_ukey" UNIQUE ("Username") INCLUDE ("Email");
 
 
--- Completed on 2023-10-01 20:08:01
+-- Completed on 2023-10-12 22:44:45
 
 --
 -- PostgreSQL database dump complete
