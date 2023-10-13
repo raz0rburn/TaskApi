@@ -32,7 +32,7 @@ namespace TaskApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            
 
 
             var connectionString = Configuration["PostgreSql:ConnectionString"];

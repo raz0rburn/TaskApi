@@ -27,6 +27,7 @@ namespace TaskApi.Controllers
         { 
             return await _context.TaskItems.Where(p => p.IsDeleted.Equals(IsDeleted.No)).ToListAsync();
         }
+
         // GET: api/TaskItems
         [Authorize]
         [HttpGet("deleted")]
@@ -34,6 +35,7 @@ namespace TaskApi.Controllers
         {
             return await _context.TaskItems.Where(p => p.IsDeleted.Equals(IsDeleted.Yes)).ToListAsync(); ;
         }
+
         // GET: api/TaskItems/5
         [Authorize]
         [HttpGet("{id}")]
@@ -46,6 +48,7 @@ namespace TaskApi.Controllers
             }
             return taskItem;
         }
+
         // GET: api/TaskItems/5
         [Authorize]
         [HttpGet("deleted/{id}")]
@@ -67,7 +70,7 @@ namespace TaskApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTaskItem(long id, TaskItemDTO taskItemDTO)
         {
-            string varCompletionDate;
+            string completionDate;
             if (id != taskItemDTO.Id)
             {
                 return BadRequest();
@@ -75,10 +78,10 @@ namespace TaskApi.Controllers
             //Запись даты если статус "Completed"
             if (taskItemDTO.Status == Status.Completed)
             {
-                varCompletionDate = DateTime.Now.ToString("yyyy-MM-dd");
+                completionDate = DateTime.Now.ToString("yyyy-MM-dd");
             }
             else
-                varCompletionDate = "";
+                completionDate = "";
             var taskItem = new TaskItem
             {
                 Id = taskItemDTO.Id,
@@ -87,9 +90,10 @@ namespace TaskApi.Controllers
                 DueDate = taskItemDTO.DueDate,
                 CreationDate = taskItemDTO.CreationDate,
                 Status = taskItemDTO.Status,
-                CompletionDate = varCompletionDate
+                CompletionDate = completionDate
             };
             _context.Entry(taskItem).State = EntityState.Modified;
+
             try
             {
                 await _context.SaveChangesAsync();
@@ -112,19 +116,18 @@ namespace TaskApi.Controllers
         }
 
         // POST: api/TaskItems
-
         //[Authorize]
         [HttpPost]
         public async Task<ActionResult<TaskItemDTO>> CreateTaskItem(TaskItemDTO taskItemDTO)
         {
-            string varCompletionDate;
+            string completionDate;
             //Запись даты если статус "Completed"
             if (taskItemDTO.Status == Status.Completed)
             {
-                varCompletionDate = DateTime.Now.ToString("yyyy-MM-dd");
+                completionDate = DateTime.Now.ToString("yyyy-MM-dd");
             }
             else
-                varCompletionDate = "";
+                completionDate = "";
             var taskItem = new TaskItem
             {
                 Id = taskItemDTO.Id,
@@ -132,7 +135,7 @@ namespace TaskApi.Controllers
                 Description = taskItemDTO.Description,
                 DueDate = taskItemDTO.DueDate,
                 CreationDate = taskItemDTO.CreationDate,
-                CompletionDate = varCompletionDate,
+                CompletionDate = completionDate,
                 Status = taskItemDTO.Status
             };
             _context.TaskItems.Add(taskItem);
@@ -212,7 +215,7 @@ namespace TaskApi.Controllers
                 Description = taskItem.Description,
                 DueDate = taskItem.DueDate,
                 CreationDate = taskItem.CreationDate,
-                Status = taskItem.Status,  
+                Status = taskItem.Status,
             };
     }
 }

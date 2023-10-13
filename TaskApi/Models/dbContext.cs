@@ -37,8 +37,6 @@ namespace TaskApi.Models
 
             modelBuilder.Entity<TaskItem>(entity =>
             {
-                entity.Property(e => e.Id).HasDefaultValueSql("nextval('\"TaskItem_Id_seq\"'::regclass)");
-
                 entity.Property(e => e.Description)
                     .HasMaxLength(1024)
                     .IsFixedLength(true);
@@ -56,9 +54,8 @@ namespace TaskApi.Models
                     .IsFixedLength(true);
 
             });
-            modelBuilder.Entity<UserModel>(entity =>
+            modelBuilder.Entity<User>(entity =>
             {
-                entity.Property(e => e.Id).HasDefaultValueSql("nextval('\"Users_Id_seq\"'::regclass)");
                 entity.Property(e => e.FirstName)
                     .HasMaxLength(32)
                     .IsFixedLength(true);
@@ -79,11 +76,9 @@ namespace TaskApi.Models
                     .IsFixedLength(true);
             });
             OnModelCreatingPartial(modelBuilder);
-
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-    
     }
 }

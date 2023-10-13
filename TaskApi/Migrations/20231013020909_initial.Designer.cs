@@ -9,8 +9,8 @@ using TaskApi.Models;
 namespace TaskApi.Migrations
 {
     [DbContext(typeof(dbContext))]
-    [Migration("20231012135322_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20231013020909_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,22 +29,34 @@ namespace TaskApi.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Email")
-                        .HasColumnType("text");
+                        .HasMaxLength(32)
+                        .HasColumnType("character(32)")
+                        .IsFixedLength(true);
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("text");
+                        .HasMaxLength(32)
+                        .HasColumnType("character(32)")
+                        .IsFixedLength(true);
 
                     b.Property<string>("LastName")
-                        .HasColumnType("text");
+                        .HasMaxLength(32)
+                        .HasColumnType("character(32)")
+                        .IsFixedLength(true);
 
                     b.Property<string>("Password")
-                        .HasColumnType("text");
+                        .HasMaxLength(32)
+                        .HasColumnType("character(32)")
+                        .IsFixedLength(true);
 
                     b.Property<string>("Patronymic")
-                        .HasColumnType("text");
+                        .HasMaxLength(32)
+                        .HasColumnType("character(32)")
+                        .IsFixedLength(true);
 
                     b.Property<string>("Username")
-                        .HasColumnType("text");
+                        .HasMaxLength(32)
+                        .HasColumnType("character(32)")
+                        .IsFixedLength(true);
 
                     b.HasKey("Id");
 
@@ -56,7 +68,7 @@ namespace TaskApi.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasDefaultValueSql("nextval('\"TaskItem_Id_seq\"'::regclass)");
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("CompletionDate")
                         .HasMaxLength(10)
@@ -92,54 +104,6 @@ namespace TaskApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TaskItems");
-                });
-
-            modelBuilder.Entity("TaskApi.Models.UserModel", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasDefaultValueSql("nextval('\"Users_Id_seq\"'::regclass)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("character(32)")
-                        .IsFixedLength(true);
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("character(32)")
-                        .IsFixedLength(true);
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("character(32)")
-                        .IsFixedLength(true);
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("character(32)")
-                        .IsFixedLength(true);
-
-                    b.Property<string>("Patronymic")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("character(32)")
-                        .IsFixedLength(true);
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("character(32)")
-                        .IsFixedLength(true);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserModel");
                 });
 #pragma warning restore 612, 618
         }
