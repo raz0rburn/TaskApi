@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
@@ -10,15 +10,15 @@ namespace TaskApi.Models
     {
         public dbContext()
         {
-         
+
         }
 
         public dbContext(DbContextOptions<dbContext> options)
             : base(options)
         {
 
-
         }
+
         public DbSet<User> Users { get; set; }
 
         public virtual DbSet<TaskItem> TaskItems { get; set; }
@@ -52,29 +52,8 @@ namespace TaskApi.Models
                 entity.Property(e => e.CompletionDate)
                     .HasMaxLength(10)
                     .IsFixedLength(true);
+            });
 
-            });
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.Property(e => e.FirstName)
-                    .HasMaxLength(32)
-                    .IsFixedLength(true);
-                entity.Property(e => e.LastName)
-                    .HasMaxLength(32)
-                    .IsFixedLength(true);
-                entity.Property(e => e.Patronymic)
-                    .HasMaxLength(32)
-                    .IsFixedLength(true);
-                entity.Property(e => e.Username)
-                    .HasMaxLength(32)
-                    .IsFixedLength(true);
-                entity.Property(e => e.Email)
-                    .HasMaxLength(32)
-                    .IsFixedLength(true);
-                entity.Property(e => e.Password)
-                    .HasMaxLength(32)
-                    .IsFixedLength(true);
-            });
             OnModelCreatingPartial(modelBuilder);
         }
 

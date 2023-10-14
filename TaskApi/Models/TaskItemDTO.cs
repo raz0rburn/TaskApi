@@ -7,10 +7,8 @@ using TaskApi.CustomValidation;
 
 namespace TaskApi.Models
 {
-
     public class TaskItemDTO
     {
- 
         public long Id { get; set; }
         [Required]
         [StringLength(128)]
@@ -18,7 +16,6 @@ namespace TaskApi.Models
         [Required]
         [StringLength(1024)]
         public string Description { get; set; }
-
         [ValidDate]
         public string DueDate { get; set; }
         [ValidDate]
@@ -26,6 +23,5 @@ namespace TaskApi.Models
         [Required]
         [Range(0, 2, ErrorMessage = "Недопустимый статус")]
         public Status Status { get; set; }
-
     }
 }

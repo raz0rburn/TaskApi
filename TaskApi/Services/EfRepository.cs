@@ -5,20 +5,17 @@ using TaskApi.Entities;
 using TaskApi.Models;
 namespace TaskApi.Services
 {
-    public class UserRepository<T>: IEfRepository<T> where T: BaseEntity
+    public class UserRepository<T> : IEfRepository<T> where T : BaseEntity
     {
         private readonly dbContext _context;
-
         public UserRepository(dbContext context)
         {
             _context = context;
         }
-
         public List<T> GetAll()
         {
             return _context.Set<T>().ToList();
         }
-
         public T GetById(long id)
         {
             var result = _context.Set<T>().FirstOrDefault(x => x.Id == id);
@@ -30,7 +27,6 @@ namespace TaskApi.Services
 
             return result;
         }
-
         public async Task<long> Add(T entity)
         {
             var result = await _context.Set<T>().AddAsync(entity);

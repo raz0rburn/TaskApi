@@ -17,7 +17,7 @@ namespace TaskApi
                 .ForMember(dst => dst.Patronymic, opt => opt.MapFrom(src => src.Patronymic))
                 .ForMember(dst => dst.Id, opt => opt.Ignore())
                 ;
-            
+
             CreateMap<User, AuthenticateResponse>()
                 .ForMember(dst => dst.Email, opt => opt.MapFrom(src => src.Email))
                 .ForMember(dst => dst.Username, opt => opt.MapFrom(src => src.Email))

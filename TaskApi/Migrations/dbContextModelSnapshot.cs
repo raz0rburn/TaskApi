@@ -27,34 +27,22 @@ namespace TaskApi.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Email")
-                        .HasMaxLength(32)
-                        .HasColumnType("character(32)")
-                        .IsFixedLength(true);
+                        .HasColumnType("text");
 
                     b.Property<string>("FirstName")
-                        .HasMaxLength(32)
-                        .HasColumnType("character(32)")
-                        .IsFixedLength(true);
+                        .HasColumnType("text");
 
                     b.Property<string>("LastName")
-                        .HasMaxLength(32)
-                        .HasColumnType("character(32)")
-                        .IsFixedLength(true);
+                        .HasColumnType("text");
 
                     b.Property<string>("Password")
-                        .HasMaxLength(32)
-                        .HasColumnType("character(32)")
-                        .IsFixedLength(true);
+                        .HasColumnType("text");
 
                     b.Property<string>("Patronymic")
-                        .HasMaxLength(32)
-                        .HasColumnType("character(32)")
-                        .IsFixedLength(true);
+                        .HasColumnType("text");
 
                     b.Property<string>("Username")
-                        .HasMaxLength(32)
-                        .HasColumnType("character(32)")
-                        .IsFixedLength(true);
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

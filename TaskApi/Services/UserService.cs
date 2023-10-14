@@ -27,32 +27,26 @@ namespace TaskApi.Services
             var user = _userRepository
                 .GetAll()
                 .FirstOrDefault(x => x.Username == model.Username && x.Password == model.Password);
-
             if (user == null)
             {
                 return null;
             }
-
             var token = _configuration.GenerateJwtToken(user);
-
             return new AuthenticateResponse(user, token);
         }
 
         public async Task<AuthenticateResponse> Register(UserModel userModel)
         {
             var user = _mapper.Map<User>(userModel);
-
             var addedUser = await _userRepository.Add(user);
-
             var response = Authenticate(new AuthenticateRequest
             {
                 Username = user.Username,
                 Password = user.Password
             });
-            
             return response;
         }
-        
+
         public IEnumerable<User> GetAll()
         {
             return _userRepository.GetAll();

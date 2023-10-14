@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,7 +24,7 @@ namespace TaskApi.Controllers
         //[Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TaskItem>>> GetTaskItems()
-        { 
+        {
             return await _context.TaskItems.Where(p => p.IsDeleted.Equals(IsDeleted.No)).ToListAsync();
         }
 
@@ -33,7 +33,8 @@ namespace TaskApi.Controllers
         [HttpGet("deleted")]
         public async Task<ActionResult<IEnumerable<TaskItem>>> GetDeletedTaskItems()
         {
-            return await _context.TaskItems.Where(p => p.IsDeleted.Equals(IsDeleted.Yes)).ToListAsync(); ;
+            return await _context.TaskItems.Where(p => p.IsDeleted.Equals(IsDeleted.Yes)).ToListAsync();
+            ;
         }
 
         // GET: api/TaskItems/5
@@ -93,7 +94,6 @@ namespace TaskApi.Controllers
                 CompletionDate = completionDate
             };
             _context.Entry(taskItem).State = EntityState.Modified;
-
             try
             {
                 await _context.SaveChangesAsync();
@@ -109,6 +109,7 @@ namespace TaskApi.Controllers
                     throw;
                 }
             }
+
             return CreatedAtAction(
                 nameof(GetTaskItem),
                 new { id = taskItem.Id },
@@ -158,9 +159,7 @@ namespace TaskApi.Controllers
             }
             if ((taskItem.IsDeleted.Equals(IsDeleted.Yes)))
             {
-
                 taskItem.IsDeleted = IsDeleted.No;
-
             }
             await _context.SaveChangesAsync();
             return CreatedAtAction(

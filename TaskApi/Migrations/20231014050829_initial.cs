@@ -32,12 +32,12 @@ namespace TaskApi.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FirstName = table.Column<string>(type: "character(32)", fixedLength: true, maxLength: 32, nullable: true),
-                    LastName = table.Column<string>(type: "character(32)", fixedLength: true, maxLength: 32, nullable: true),
-                    Patronymic = table.Column<string>(type: "character(32)", fixedLength: true, maxLength: 32, nullable: true),
-                    Username = table.Column<string>(type: "character(32)", fixedLength: true, maxLength: 32, nullable: true),
-                    Email = table.Column<string>(type: "character(32)", fixedLength: true, maxLength: 32, nullable: true),
-                    Password = table.Column<string>(type: "character(32)", fixedLength: true, maxLength: 32, nullable: true)
+                    FirstName = table.Column<string>(type: "text", nullable: true),
+                    LastName = table.Column<string>(type: "text", nullable: true),
+                    Patronymic = table.Column<string>(type: "text", nullable: true),
+                    Username = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    Password = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {

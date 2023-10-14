@@ -32,9 +32,6 @@ namespace TaskApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            
-
-
             var connectionString = Configuration["PostgreSql:ConnectionString"];
             var dbPassword = Configuration["PostgreSql:DbPassword"];
             var builder = new NpgsqlConnectionStringBuilder(connectionString)
@@ -42,18 +39,13 @@ namespace TaskApi
                 Password = dbPassword
             };
             services.AddDbContext<dbContext>(options => options.UseNpgsql(builder.ConnectionString));
-
             //option of switching to Memory Database
             services.AddDbContext<MemDbContext>(opt =>
                        opt.UseInMemoryDatabase("TaskList"));
-
             services.AddScoped(typeof(IEfRepository<>), typeof(UserRepository<>));
-
             services.AddAutoMapper(typeof(UserProfile));
             services.AddCors();
             services.AddControllers();
-
-
             services.AddScoped<IUserService, UserService>();
         }
 
@@ -63,20 +55,13 @@ namespace TaskApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
-
-
             app.UseCors(x => x
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
-
             app.UseMiddleware<JwtMiddleware>();
             app.UseEndpoints(x => x.MapControllers());
         }

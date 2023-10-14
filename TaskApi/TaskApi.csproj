@@ -21,5 +21,13 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\repos\TaskApi\TaskApi\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\repos\TaskApi\TaskApi\.editorconfig" />
+  </ItemGroup>
+
 
 </Project>

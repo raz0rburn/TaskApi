@@ -4,7 +4,7 @@ using TaskApi.Entities;
 
 namespace TaskApi.Services
 {
-    public interface IEfRepository<T> where T: BaseEntity
+    public interface IEfRepository<T> where T : BaseEntity
     {
         List<T> GetAll();
         T GetById(long id);

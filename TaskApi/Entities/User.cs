@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace TaskApi.Entities
 {
     public class User : BaseEntity
-    { 
+    {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Patronymic { get; set; }
