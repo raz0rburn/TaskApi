@@ -34,7 +34,6 @@ namespace TaskApi.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Russian_Russia.1251");
-
             modelBuilder.Entity<TaskItem>(entity =>
             {
                 entity.Property(e => e.Description)
@@ -53,7 +52,6 @@ namespace TaskApi.Models
                     .HasMaxLength(10)
                     .IsFixedLength(true);
             });
-
             OnModelCreatingPartial(modelBuilder);
         }
 

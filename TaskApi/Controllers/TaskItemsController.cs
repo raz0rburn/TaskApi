@@ -21,11 +21,11 @@ namespace TaskApi.Controllers
         }
 
         // GET: api/TaskItems
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TaskItem>>> GetTaskItems()
         {
-            return await _context.TaskItems.Where(p => p.IsDeleted.Equals(IsDeleted.No)).ToListAsync();
+            return await _context.TaskItems.Where(item => item.IsDeleted.Equals(IsDeleted.No)).ToListAsync();
         }
 
         // GET: api/TaskItems
@@ -33,8 +33,7 @@ namespace TaskApi.Controllers
         [HttpGet("deleted")]
         public async Task<ActionResult<IEnumerable<TaskItem>>> GetDeletedTaskItems()
         {
-            return await _context.TaskItems.Where(p => p.IsDeleted.Equals(IsDeleted.Yes)).ToListAsync();
-            ;
+            return await _context.TaskItems.Where(item => item.IsDeleted.Equals(IsDeleted.Yes)).ToListAsync();
         }
 
         // GET: api/TaskItems/5
@@ -117,7 +116,7 @@ namespace TaskApi.Controllers
         }
 
         // POST: api/TaskItems
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<TaskItemDTO>> CreateTaskItem(TaskItemDTO taskItemDTO)
         {
@@ -204,8 +203,9 @@ namespace TaskApi.Controllers
                 new { id = taskItem.Id },
                 taskItem);
         }
+
         private bool TaskItemExists(long id) =>
-            _context.TaskItems.Any(e => e.Id == id);
+            _context.TaskItems.Any(item => item.Id == id);
         private static TaskItemDTO ItemToDTO(TaskItem taskItem) =>
             new TaskItemDTO
             {
